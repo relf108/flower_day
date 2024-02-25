@@ -16,6 +16,7 @@ import 'package:image/image.dart' as image;
 import 'package:path_provider/path_provider.dart';
 import 'package:timezone/data/latest_all.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
+import 'package:flower_day/src/features/notifications/data/api.dart';
 
 int id = 0;
 
@@ -256,7 +257,7 @@ class HomePageState extends State<HomePage> {
       TextEditingController();
 
   bool _notificationsEnabled = false;
-  Map<String, String> notifications = {};
+  List<Map<String, String>> notifications = [{}];
 
   @override
   void initState() {
@@ -354,11 +355,11 @@ class HomePageState extends State<HomePage> {
   }
 
   Future<void> _getNotifications() async {
+    // TODO(Tristan Sutton): fetch notifications from server
+    var apiResp = await NotificationsAPI.getNotifications();
     setState(() {
-      notifications = {
-        "notificationTitle": "Notification Title",
-        "notificationBody": "Notification Body",
-      };
+      notifications = apiResp;
+
     });
   }
 
